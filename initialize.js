@@ -1,10 +1,32 @@
 
 //== Main Initialization ==\\
+var interactionMode="desktop";
+var _Resolution=1;
+try{
+	document.createEvent("TouchEvent");
+	interactionMode="mobile";
+	/*console.log(STAGE_WIDTH+" "+STAGE_HEIGHT+" "+window.innerWidth+" "+window.innerHeight);
+	let _ratio=Math.max(window.innerWidth/STAGE_WIDTH,window.innerHeight/STAGE_HEIGHT);*/
+	STAGE_WIDTH=window.innerWidth;
+	STAGE_HEIGHT=window.innerHeight;
+	/*console.log(_ratio,_Resolution);
+	while(_ratio>2){
+		_ratio/=2;
+		_Resolution+=1;
+		STAGE_WIDTH/=2;
+		STAGE_HEIGHT/=2;
+	}*/
+
+}catch(e){
+	//interactionMode="desktop";
+}
+
 var app = new PIXI.Application(STAGE_WIDTH,STAGE_HEIGHT,{backgroundColor:0xeeeeee});
 document.getElementById("game-canvas").append(app.view);
 
 //== Initialize Variables for use ==\\
 var mouseObjects=new Array();
+
 //var mouse=app
 var mouse={x:0,y:0,down:false};
 
@@ -14,7 +36,7 @@ var mouse={x:0,y:0,down:false};
 
 var stageBorders=collision_rect(app.view.offsetLeft,app.view.offsetTop,STAGE_WIDTH,STAGE_HEIGHT);
 //== Initialize Supporting Structures ==\\
-
+DisplayState.interactionMode=interactionMode;
 app.stage.interactive=true;
 window.addEventListener("resize",function(){
 	stageBorders.left=app.view.offsetLeft;
@@ -50,11 +72,14 @@ function onMouseDown(e){
 	mouseObject.id=e.pointerId;
 	mouseObject.down=true;
 	let _object=game_mouseDown(e);
+	//console.log(e);
 	if (_object!=null){
 		mouseObject.drag=_object;
 	}
 	mouseObjects.push(mouseObject);
 	mouse.down=true;
+	mouse.x=e.x-stageBorders.left;
+	mouse.y=e.y-stageBorders.top;
 }
 
 function onMouseUp(e){

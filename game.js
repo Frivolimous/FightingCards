@@ -1,5 +1,6 @@
 var gameM={
 	cards:[],
+	deck:null,
 	gameStage:null,
 	health:10,
 	healthChip:0,
@@ -14,8 +15,8 @@ function game_putFirst(_box){
 			return;
 		}
 	}
-
 }
+
 //== Initialize Game Elements==\\
 function game_init(){
 	gameM.gameStage=new PIXI.Sprite();
@@ -24,11 +25,14 @@ function game_init(){
 	app.ticker.add(game_onTick);
 
 	ui_addBasicButton("Clear",game_clearTopHalf,stageBorders.right-80,20);
-	/*for (var i=0;i<6;i+=1){
-		game_addCard(i,100,100+50*i);
-	}*/
-
-	//ui_addBasicButton("Test",game_addRandomCardToHand);
+	ui_addBasicButton("+1",function(){game_healthDamaged(-1)},stageBorders.right-80,stageBorders.bot-80);
+	ui_addBasicButton("-1",function(){game_healthDamaged(1)},stageBorders.right-80,stageBorders.bot-40);
+	ui_addBasicButton("+C",function(){game_healthChipped(-1)},stageBorders.right-40,stageBorders.bot-80);
+	ui_addBasicButton("-C",function(){game_healthChipped(1)},stageBorders.right-40,stageBorders.bot-40);
+	gameM.deck=box_deck();
+	gameM.deck.x=10;
+	gameM.deck.y=stageBorders.bot-gameM.deck.height-100;
+	gameM.gameStage.addChild(gameM.deck);
 }
 
 //== Start/Stop the Game ==\\
@@ -72,13 +76,20 @@ function game_mouseDown(e){
 		let _object=game_addCard(game_randomCardInt(),stageBorders.right/2,stageBorders.bot);
 		return _object;
 	}else{
-		let _object=game_getClosestBox(e);
-		if (_object!=null) game_putFirst(_object);
-		return _object;
+		if (collision_pointInObj(e,gameM.deck)){
+			let _object=game_addCardAtObject(gameM.deck);
+			return _object;
+		}else{
+			let _object=game_getClosestBox(e);
+			if (_object!=null) game_putFirst(_object);
+			return _object;
+		}
 	}
 }
 
-
+function game_addCardAtObject(_object){
+	return game_addCard(game_randomCardInt(),_object.x,_object.y);
+}
 
 function game_setHealth(i){
 	gameM.health=i;

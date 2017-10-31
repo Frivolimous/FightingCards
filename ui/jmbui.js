@@ -4,6 +4,7 @@ const DisplayState={
 	BLACKENED:-2,
 	GREYED:1,
 	BRIGHTENED:2,
+	interactionMode:"desktop",
 }
 
 function ui_nullFunc(){}
@@ -96,10 +97,13 @@ function button_constructBasic(par){
 	m.buttonMode=true;
 	m.downOnThis=false;
 	m.on("pointerover",function(e){
-		this.setDisplayState(DisplayState.DARKENED);
+		if (DisplayState.interactionMode=="desktop"){
+			this.setDisplayState(DisplayState.DARKENED);
+		}
 	});
 	m.on("pointerout",function(e){
 		this.setDisplayState(DisplayState.NORMAL);
+		
 		this.downOnThis=false;
 	});
 	m.on("pointerdown",function(e){
@@ -107,7 +111,11 @@ function button_constructBasic(par){
 		this.downOnThis=true;
 	});
 	m.on("pointerup",function(e){
-		this.setDisplayState(DisplayState.DARKENED);
+		if (DisplayState.interactionMode=="desktop"){
+			this.setDisplayState(DisplayState.DARKENED);
+		}else{
+			this.setDisplayState(DisplayState.NORMAL);
+		}	
 		if (this.downOnThis){
 			this.output();
 		}

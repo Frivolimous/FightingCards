@@ -42,6 +42,30 @@ function box_card(_color,_text){
 		_label.y=25;
 		m.addChild(_label);
 	}
+
+	m.interactive=true;
+	m.buttonMode=true;
+
+	return m;
+}
+
+function box_deck(){
+	let m=new PIXI.Graphics;
+	m.beginFill(0xffaaaa);
+	m.lineStyle(2,0);
+	m.drawRect(0,0,50,70);
+	m.beginFill(0);
+	m.moveTo(50,0);
+	m.lineTo(60,10);
+	m.lineTo(60,80);
+	/*m.lineTo(50,70);
+	m.endFill();*/
+	m.lineTo(10,80);
+	m.lineTo(0,70);
+	m.lineTo(50,70);
+	m.endFill();
+	m.interactive=true;
+	m.buttonMode=true;
 	return m;
 }
 

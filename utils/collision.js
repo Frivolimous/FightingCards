@@ -1,3 +1,11 @@
+function collision_pointInObj(_point,_obj){
+    if (_point.x>_obj.x && _point.x<_obj.x+_obj.width &&
+        _point.y>_obj.y && _point.y<_obj.y+_obj.height){
+        return true;
+    }
+    return false;
+}
+
 function collision_getBorder(_obj1,_rect){
     var _xDist=0;
     var _yDist=0;
