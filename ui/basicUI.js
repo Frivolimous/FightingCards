@@ -20,6 +20,9 @@ function ui_init(){
 
 function ui_onTick(_delta){
 	uiM.bottomBar.text.text="Health:\n"+gameM.health;
+	if (gameM.healthChip>0){
+		uiM.bottomBar.text.text+=", "+gameM.healthChip;
+	}
 }
 
 function ui_addToggleButton(_name,_function,_toggled=false){

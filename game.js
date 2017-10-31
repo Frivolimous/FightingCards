@@ -2,6 +2,7 @@ var gameM={
 	cards:[],
 	gameStage:null,
 	health:10,
+	healthChip:0,
 }
 
 function game_putFirst(_box){
@@ -92,7 +93,15 @@ function game_healthDamaged(i){
 }
 
 function game_healthChipped(i){
-	gameM.health-=i/4;
+	gameM.healthChip-=i;
+	while(gameM.healthChip>=3){
+		gameM.health+=1;
+		gameM.healthChip-=3;
+	}
+	while (gameM.healthChip<0){
+		gameM.health-=1;
+		gameM.healthChip+=3;
+	}
 }
 
 function game_sortHand(){
