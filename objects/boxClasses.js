@@ -32,6 +32,7 @@ function box_card(_color,_text){
 	m.drawRect(0,0,50,70);
 	m.vX=0;
 	m.vY=0;
+	m.drawCircle(10,10,10);
 	if (_text!=null){
 		let _label=new PIXI.Text(_text,{
 			fontSize:18,
@@ -41,7 +42,15 @@ function box_card(_color,_text){
 		_label.x=10;
 		_label.y=25;
 		m.addChild(_label);
+		_label=new PIXI.Text(_text.substring(0,1),{
+			fontSize:10,
+			fill:0xffffff
+		});
+		_label.x=6;
+		_label.y=4;
+		m.addChild(_label);
 	}
+	
 
 	m.interactive=true;
 	m.buttonMode=true;

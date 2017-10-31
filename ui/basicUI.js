@@ -12,6 +12,8 @@ function ui_init(){
 	_elements.lineStyle(3,0x666666);
 	_elements.moveTo(0,stageBorders.bot/2);
 	_elements.lineTo(stageBorders.right,stageBorders.bot/2);
+	_elements.moveTo(stageBorders.right-200,stageBorders.bot/2);
+	_elements.lineTo(stageBorders.right-200,stageBorders.bot);
 
 	app.stage.addChild(_elements);
 	app.stage.addChild(uiM.bottomBar);

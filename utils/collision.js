@@ -6,6 +6,16 @@ function collision_pointInObj(_point,_obj){
     return false;
 }
 
+function collision_getDistance(_obj1,_obj2){
+    return Math.sqrt((_obj1.x-_obj2.x)*(_obj1.x-_obj2.x)+(_obj1.y-_obj2.y)*(_obj1.y-_obj2.y));
+}
+
+function collision_getDistanceVector(_obj1,_obj2){
+    let m={mag:Math.sqrt((_obj1.x-_obj2.x)*(_obj1.x-_obj2.x)+(_obj1.y-_obj2.y)*(_obj1.y-_obj2.y)),
+            dir:Math.atan2((_obj1.y-_obj2.y),(_obj1.x-_obj2.x))};
+    return m;
+}
+
 function collision_getBorder(_obj1,_rect){
     var _xDist=0;
     var _yDist=0;

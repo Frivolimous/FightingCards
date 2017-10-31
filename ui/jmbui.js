@@ -103,7 +103,7 @@ function button_constructBasic(par){
 	});
 	m.on("pointerout",function(e){
 		this.setDisplayState(DisplayState.NORMAL);
-		
+			
 		this.downOnThis=false;
 	});
 	m.on("pointerdown",function(e){

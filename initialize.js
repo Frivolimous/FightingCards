@@ -42,16 +42,13 @@ window.addEventListener("resize",function(){
 	stageBorders.left=app.view.offsetLeft;
 	stageBorders.top=app.view.offsetTop;
 });
-/*app.stage.on("mousedown",onMouseDown);
-app.stage.on("mouseup",onMouseUp);
-*///app.ticker.add(resetMouse);
 
 window.addEventListener("keydown",onKeyDown)
 window.addEventListener("keyup",onKeyUp)
 window.addEventListener("pointerdown",onMouseDown);
 window.addEventListener("pointerup",onMouseUp);
 window.addEventListener("pointermove",onMouseMove);
-app.ticker.add(main_onTick);
+
 //== Initialize the game after everything is setup ==\\
 ui_init();
 
@@ -68,42 +65,20 @@ function resetMouse(){
 	//mouseDown=false;
 }
 function onMouseDown(e){
-	var mouseObject=mouseObject_constructor();
-	mouseObject.id=e.pointerId;
-	mouseObject.down=true;
-	let _object=game_mouseDown(e);
-	//console.log(e);
-	if (_object!=null){
-		mouseObject.drag=_object;
-	}
-	mouseObjects.push(mouseObject);
+	game_mouseDown(e);
+
 	mouse.down=true;
 	mouse.x=e.x-stageBorders.left;
 	mouse.y=e.y-stageBorders.top;
 }
 
 function onMouseUp(e){
-	for (var i=0;i<mouseObjects.length;i+=1){
-		if (mouseObjects[i].id==e.pointerId){
-			mouseObjects.splice(i,1);
-			return;
-		}
-	}
 	mouse.down=false;
 }
 
 function onMouseMove(e){
 	mouse.x=e.x-stageBorders.left;
 	mouse.y=e.y-stageBorders.top;
-}
-
-function main_onTick(e){
-	for (var i=0;i<mouseObjects.length;i+=1){
-		if (mouseObjects[i].drag!=null){
-			let _box=mouseObjects[i].drag;
-			_box.pullTo(mouse.x,mouse.y);
-		}
-	}
 }
 
 function onKeyDown(e){
